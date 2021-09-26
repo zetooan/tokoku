@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	$_SESSION['buka'] = "ok";
-	$_SESSION['halaman'] = "ok";
 	if (isset($_SESSION['buka']) && $_SESSION['buka'] == "ok") {
 		?>
 		<!DOCTYPE html>
@@ -14,7 +13,9 @@
 		</head>
 		<body>
 		<?php
-		$_SESSION['halaman'] = isset($_GET['hal1']) ? $_GET['hal1']: "";
+
+		$_SESSION['halaman'] = isset($_GET['hal1']) ? $_GET['hal1']: (isset($_SESSION['halaman']) ? $_SESSION['halaman']: "");
+
 		$halaman[2]= isset($_GET['hal2']) ? $_GET['hal2']: "";
 		include 'fungsi/fungsi.php';
 		include 'halaman/header.php';

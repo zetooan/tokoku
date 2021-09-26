@@ -2,7 +2,7 @@
 if (isset($_SESSION['buka']) && $_SESSION['buka'] == "ok")
 {
 	?>
-	<header><b>TokoKU</b></header>
+	<header><b>TokoKU</b>
 	<nav>
 	<a href="index.php?hal1=barang" class="navigasi">Barang</a>
 	<a href="index.php?hal1=pemasukan" class="navigasi">Pemasukan</a>
@@ -10,6 +10,7 @@ if (isset($_SESSION['buka']) && $_SESSION['buka'] == "ok")
 	<div class="navigasi">Penjualan</div>
 	<div class="navigasi">Laporan</div>
 	</nav>
+	</header>
 	<?php
 }
 else

@@ -1,6 +1,7 @@
 <?php
 if (isset($_SESSION['buka']) && $_SESSION['buka'] == "ok") {
 	if ($halaman[2] == "tambah") {
+		echo '<h3 class="judul">Tambah Barang</h3>';
 		if (isset($_POST['tambah'])){
 			$kode = $_POST['kode'];
 			$nama = $_POST['nama'];
@@ -10,41 +11,41 @@ if (isset($_SESSION['buka']) && $_SESSION['buka'] == "ok") {
 			$cari_kode = $db->query($query_kode);
 
 				echo'<form method="post" action="index.php?hal2=tambah">';
-				echo'<input type="text" name="nama" placeholder="Nama Barang" value="'.$nama.'"><br>';
+				echo'<input type="text" name="nama" placeholder="Nama Barang" value="'.$nama.'" class="ipt1"><br>';
 				if (empty(trim($nama))) {
-					echo 'nama barang masih kosong<br>';
+					echo '<div class="ket1">nama barang masih kosong<br></div>';
 				}
 				else{
 					echo '<br>';
 				}
-				echo'<input type="text" name="kode" placeholder="Kode Barang" value="'.$kode.'"><br>';
+				echo'<input type="text" name="kode" placeholder="Kode Barang" value="'.$kode.'" class="ipt1"><br>';
 				if (empty(trim($kode))) {
-					echo 'kode barang masih kosong<br>';
+					echo '<div class="ket1">kode barang masih kosong<br></div>';
 				}
 				elseif ($cari_kode->num_rows > 0) {
-					echo 'kode barang sudah ada<br>';
+					echo '<div class="ket1">kode barang sudah ada<br></div>';
 				}
 				else{
 					echo '<br>';
 				}
-				echo'<input type="number" name="harga" placeholder="Harga Jual" value="'.$harga.'"><br>';
+				echo'<input type="number" name="harga" placeholder="Harga Jual" value="'.$harga.'" class="ipt1"><br>';
 				if (empty(trim($harga))) {
-					echo 'harga barang masih kosong<br>';
+					echo '<div class="ket1">harga barang masih kosong<br></div>';
 				}
 				else{
 					echo '<br>';
 				}
-				echo'<input type="submit" name="tambah" value="Tambah">';
+				echo'<input type="submit" name="tambah" value="Tambah" class="btn1">';
 				echo'</form>';
 			if (empty(trim($nama))||empty(trim($kode))||empty(trim($harga))||$cari_kode->num_rows > 0) {
-					echo 'gagal';
+					echo '<div class="ket1">gagal</div>';
 			}
 			else{
 				$query = "INSERT INTO stok(kode_barang, nama_barang, harga_jual_barang) VALUES ('$kode', '$nama', '$harga')";
 				if ($db->query($query)) {
 					header("Location: index.php");
 				}else{
-					echo 'gagal upload data dikarenakan ada kesalahan';
+					echo '<div class="ket1">gagal upload data dikarenakan ada kesalahan</div>';
 				}
 			}	
 			
@@ -52,17 +53,17 @@ if (isset($_SESSION['buka']) && $_SESSION['buka'] == "ok") {
 		else{
 			?>
 				<form method="post" action="index.php?hal2=tambah">
-					<input type="text" name="nama" placeholder="Nama Barang"><br><br>
-					<input type="text" name="kode" placeholder="Kode Barang"><br><br>
-					<input type="number" name="harga" placeholder="Harga Jual"><br><br>
-					<input type="submit" name="tambah" value="Tambah">
+					<input type="text" name="nama" placeholder="Nama Barang" class="ipt1"><br><br>
+					<input type="text" name="kode" placeholder="Kode Barang" class="ipt1"><br><br>
+					<input type="number" name="harga" placeholder="Harga Jual" class="ipt1"><br><br>
+					<input type="submit" name="tambah" value="Tambah" class="btn1">
 				</form>
 			<?php
 		}
 	}
 	elseif ($halaman[2] == "edit_dan_hapus") {
 		if (isset($_POST['edit'])) {
-			
+			echo '<h3 class="judul">Edit Barang</h3>';
 			$keterangan = $_POST['edit'];
 			if (substr($keterangan, 0, 1) == "e") {
 				$edit_ket = "e";
@@ -82,52 +83,52 @@ if (isset($_SESSION['buka']) && $_SESSION['buka'] == "ok") {
 				$harga = $_POST['harga'];
 
 				echo'<form method="post" action="index.php?hal2=edit_dan_hapus">';
-				echo'<input type="text" name="nama" placeholder="Nama Barang" value="'.$nama.'"><br>';
+				echo'<input type="text" name="nama" placeholder="Nama Barang" value="'.$nama.'"class="ipt1"><br>';
 				if (empty(trim($nama))) {
-					echo 'nama barang masih kosong<br>';
+					echo '<div class="ket1">nama barang masih kosong<br></div>';
 				}
 				else{
 					echo '<br>';
 				}
-				echo'<input type="text" name="kode" placeholder="Kode Barang" value="'.$kode.'"><br>';
+				echo'<input type="text" name="kode" placeholder="Kode Barang" value="'.$kode.'"class="ipt1"><br>';
 				if (empty(trim($kode))) {
-					echo 'nama barang masih kosong<br>';
+					echo '<div class="ket1">nama barang masih kosong<br></div>';
 				}
 				elseif(!cek_kode_jual($db, $id, $kode)){
-					echo 'kode barang sudah terpakai<br>';
+					echo '<div class="ket1">kode barang sudah terpakai<br></div>';
 				}
 				else{
 					echo '<br>';
 				}
-				echo'<input type="number" name="harga" placeholder="Harga Jual" value="'.$harga.'"><br>';
+				echo'<input type="number" name="harga" placeholder="Harga Jual" value="'.$harga.'"class="ipt1"><br>';
 				if (empty(trim($harga))) {
-					echo 'nama barang masih kosong<br>';
+					echo '<div class="ket1">nama barang masih kosong<br></div>';
 				}
 				else{
 					echo '<br>';
 				}
-				echo'<button name="edit" value="e'.$yai['id_barang'].'">Edit</button>';
+				echo'<button name="edit" value="e'.$yai['id_barang'].'" class="btn2">Edit</button>';
 				echo'</form>';
 
 				if (empty(trim($nama))||empty(trim($kode))||empty(trim($harga))||!cek_kode_jual($db, $id, $kode)) {
-						echo 'gagal';
+						echo '<div class="ket1">gagal</div>';
 				}
 				else{
 					$query = "UPDATE stok SET kode_barang='$kode',nama_barang='$nama', harga_jual_barang='$harga' WHERE id_barang = '$id'";
 					if ($db->query($query)) {
 						header("Location: index.php");
 					}else{
-						echo 'gagal upload data dikarenakan ada kesalahan';
+						echo '<div class="ket1">gagal upload data dikarenakan ada kesalahan</div>';
 					}
 				}	
 
 				}
 			else{
 				echo'<form method="post" action="index.php?hal2=edit_dan_hapus">';
-				echo'<input type="text" name="nama" placeholder="Nama Barang" value="'.$yai['nama_barang'].'"><br><br>';
-				echo'<input type="text" name="kode" placeholder="Kode Barang" value="'.$yai['kode_barang'].'"><br><br>';
-				echo'<input type="number" name="harga" placeholder="Harga Jual" value="'.$yai['harga_jual_barang'].'"><br><br>';
-				echo'<button name="edit" value="e'.$yai['id_barang'].'">Edit</button>';
+				echo'<input type="text" name="nama" placeholder="Nama Barang" value="'.$yai['nama_barang'].'" class="ipt1"><br><br>';
+				echo'<input type="text" name="kode" placeholder="Kode Barang" value="'.$yai['kode_barang'].'" class="ipt1"><br><br>';
+				echo'<input type="number" name="harga" placeholder="Harga Jual" value="'.$yai['harga_jual_barang'].'" class="ipt1"><br><br>';
+				echo'<button name="edit" value="e'.$yai['id_barang'].'" class="btn2">Edit</button>';
 				echo'</form>';
 			}
 		}
@@ -146,14 +147,17 @@ if (isset($_SESSION['buka']) && $_SESSION['buka'] == "ok") {
 	}
 	else{
 		?>
-		<a href="index.php?hal2=tambah">Tambah</a>
-		<table border="1" width="100%">
+		<h3 class="judul">Data Barang</h3>
+		<table width="100%" cellspacing="0">
+			<tr>
+				<td align="right" colspan="5"><a href="index.php?hal2=tambah"><button  class="btn1">Tambah</button></a></td>
+			</tr>
 			<tr align="center" align="middle">
-				<td>No</td>
-				<td>Nama Barang</td>
-				<td>Kode</td>
-				<td>Harga Jual</td>
-				<td>Option</td>
+				<th>No</th>
+				<th>Nama Barang</th>
+				<th>Kode</th>
+				<th>Harga Jual</th>
+				<th>Option</th>
 			</tr>
 			<?php
 			$query = "SELECT * FROM stok";
@@ -165,13 +169,13 @@ if (isset($_SESSION['buka']) && $_SESSION['buka'] == "ok") {
 						{
 							$no++;
 							echo '<tr>';
-								echo '<td>'.$no.'</td>';
-								echo '<td>'.$yai['nama_barang'].'</td>';
-								echo '<td>'.$yai['kode_barang'].'</td>';
-								echo '<td>'.$yai['harga_jual_barang'].'</td>';
-								echo '<td><form method="post" action="index.php?hal2=edit_dan_hapus">
-									<button name="edit" value="'.$yai['id_barang'].'">Edit</button>
-									<button name="hapus" value="'.$yai['id_barang'].'">Hapus</button>
+								echo '<td align="center" align="middle">'.$no.'</td>';
+								echo '<td align="left" align="middle">'.$yai['nama_barang'].'</td>';
+								echo '<td align="left" align="middle">'.$yai['kode_barang'].'</td>';
+								echo '<td align="right" align="middle" class="ket2">Rp. '.$yai['harga_jual_barang'].'</td>';
+								echo '<td align="center" align="middle"><form method="post" action="index.php?hal2=edit_dan_hapus">
+									<button name="edit" value="'.$yai['id_barang'].'" class="btn2">Edit</button>
+									<button name="hapus" value="'.$yai['id_barang'].'" class="btn3">Hapus</button>
 									</form></td>';
 							echo '</tr>';
 						}
@@ -181,276 +185,6 @@ if (isset($_SESSION['buka']) && $_SESSION['buka'] == "ok") {
 			}
 			?> 
 		</table>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		<?php
 		}
 }
